@@ -1,89 +1,100 @@
-#include <iostream> 
-#include <vector> 
-struct ToDoTask { 
- std::string taskDescripƟon;
- bool isCompleted; 
- ToDoTask(const std::string& desc) : taskDescripƟon(desc), isCompleted(false) 
-{} 
-}; 
-void addTask(std::vector<ToDoTask>& tasks, const std::string& descripƟon) {
- tasks.push_back(ToDoTask(descripƟon));
- std::cout << "Task added: " << descripƟon << std::endl;
-} 
-void displayTasks(const std::vector<ToDoTask>& tasks) { 
- if (tasks.empty()) { 
- std::cout << "No tasks available.\n"; 
- } else { 
- std::cout << "Tasks:\n"; 
- for (size_t i = 0; i < tasks.size(); ++i) { 
- std::cout << i + 1 << ". " << tasks[i].taskDescripƟon << " - " 
- << (tasks[i].isCompleted ? "Completed" : "Pending") << "\n"; 
- } 
- } 
-} 
-void completeTask(std::vector<ToDoTask>& tasks, size_t index) { 
- if (index >= 1 && index <= tasks.size()) { 
- tasks[index - 1].isCompleted = true; 
- std::cout << "Task marked as completed: " << tasks[index - 
-1].taskDescripƟon << std::endl;
- } else { 
- std::cout << "Invalid task index.\n"; 
- } 
-} 
-void removeTask(std::vector<ToDoTask>& tasks, size_t index) { 
- if (index >= 1 && index <= tasks.size()) { 
- std::cout << "Task removed: " << tasks[index - 1].taskDescripƟon << 
-std::endl; 
- tasks.erase(tasks.begin() + index - 1); 
- } else { 
- std::cout << "Invalid task index.\n"; 
- } 
-} 
-int main() { 
- std::vector<ToDoTask> tasks; 
- while (true) { 
- std::cout << "\n===== To-Do List Manager =====\n"; 
- std::cout << "1. Add Task\n"; 
- std::cout << "2. View Tasks\n"; 
- std::cout << "3. Mark Task as Completed\n"; 
- std::cout << "4. Remove Task\n"; 
- std::cout << "5. Exit\n"; 
- std::cout << "Enter your choice: "; 
- int choice; 
- std::cin >> choice; 
- switch (choice) { 
- case 1: { 
- std::string taskDescripƟon;
- std::cout << "Enter task descripƟon: ";
- std::cin.ignore(); // Clear the input buffer 
- std::getline(std::cin, taskDescripƟon);
- addTask(tasks, taskDescripƟon);
- break; 
- } 
- case 2: 
- displayTasks(tasks); 
- break; 
- case 3: { 
- size_t taskIndex; 
- std::cout << "Enter the index of the task to mark as completed: "; 
- std::cin >> taskIndex; 
- completeTask(tasks, taskIndex); 
- break; 
- } 
- case 4: { 
- size_t taskIndex; 
- std::cout << "Enter the index of the task to remove: "; 
- std::cin >> taskIndex; 
- removeTask(tasks, taskIndex); 
- break; 
- } 
- case 5: 
- std::cout << "ExiƟng program.\n"; 
- return 0; 
- default: 
- std::cout << "Invalid choice. Please enter a number between 1 and 
-5.\n"; 
- } 
- } 
- return 0; 
-} 
+#include <iostream>
+#include <vector>
+
+
+struct ToDoTask {
+    std::string taskDescription;
+    bool isCompleted;
+
+    ToDoTask(const std::string& desc) : taskDescription(desc), isCompleted(false) {}
+};
+
+
+void addTask(std::vector<ToDoTask>& tasks, const std::string& description) {
+    tasks.push_back(ToDoTask(description));
+    std::cout << "Task added: " << description << std::endl;
+}
+
+void displayTasks(const std::vector<ToDoTask>& tasks) {
+    if (tasks.empty()) {
+        std::cout << "No tasks available.\n";
+    } else {
+        std::cout << "Tasks:\n";
+        for (size_t i = 0; i < tasks.size(); ++i) {
+            std::cout << i + 1 << ". " << tasks[i].taskDescription << " - "
+                      << (tasks[i].isCompleted ? "Completed" : "Pending") << "\n";
+        }
+    }
+}
+
+
+void completeTask(std::vector<ToDoTask>& tasks, size_t index) {
+    if (index >= 1 && index <= tasks.size()) {
+        tasks[index - 1].isCompleted = true;
+        std::cout << "Task marked as completed: " << tasks[index - 1].taskDescription << std::endl;
+    } else {
+        std::cout << "Invalid task index.\n";
+    }
+}
+
+
+void removeTask(std::vector<ToDoTask>& tasks, size_t index) {
+    if (index >= 1 && index <= tasks.size()) {
+        std::cout << "Task removed: " << tasks[index - 1].taskDescription << std::endl;
+        tasks.erase(tasks.begin() + index - 1);
+    } else {
+        std::cout << "Invalid task index.\n";
+    }
+}
+
+int main() {
+    std::vector<ToDoTask> tasks;
+
+    while (true) {
+        std::cout << "\n===== To-Do List Manager =====\n";
+        std::cout << "1. Add Task\n";
+        std::cout << "2. View Tasks\n";
+        std::cout << "3. Mark Task as Completed\n";
+        std::cout << "4. Remove Task\n";
+        std::cout << "5. Exit\n";
+        std::cout << "Enter your choice: ";
+
+        int choice;
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                std::string taskDescription;
+                std::cout << "Enter task description: ";
+                std::cin.ignore();  // Clear the input buffer
+                std::getline(std::cin, taskDescription);
+                addTask(tasks, taskDescription);
+                break;
+            }
+            case 2:
+                displayTasks(tasks);
+                break;
+            case 3: {
+                size_t taskIndex;
+                std::cout << "Enter the index of the task to mark as completed: ";
+                std::cin >> taskIndex;
+                completeTask(tasks, taskIndex);
+                break;
+            }
+            case 4: {
+                size_t taskIndex;
+                std::cout << "Enter the index of the task to remove: ";
+                std::cin >> taskIndex;
+                removeTask(tasks, taskIndex);
+                break;
+            }
+            case 5:
+                std::cout << "Exiting program.\n";
+                return 0;
+            default:
+                std::cout << "Invalid choice. Please enter a number between 1 and 5.\n";
+        }
+    }
+
+    return 0;
+}
